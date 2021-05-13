@@ -34,6 +34,31 @@ public class Book {
     public Book() {
     }
 
+    public Book(String genre, String author, String image, String title, String subtitle, String publisher,
+            String year, Integer pages, String isbn) {
+        this.genre = genre;
+        this.author = author;
+        this.image = image;
+        this.title = title;
+        this.subtitle = subtitle;
+        this.publisher = publisher;
+        this.year = year;
+        this.pages = pages;
+        this.isbn = isbn;
+    }
+
+    public void update(Book book) {
+        this.genre = book.getGenre();
+        this.author = book.getAuthor();
+        this.image = book.getImage();
+        this.title = book.getTitle();
+        this.subtitle = book.getSubtitle();
+        this.publisher = book.getPublisher();
+        this.year = book.getYear();
+        this.pages = book.getPages();
+        this.isbn = book.getIsbn();
+    }
+
     public long getId() {
         return id;
     }
