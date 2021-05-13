@@ -1,5 +1,7 @@
 package com.wolox.training.models;
 
+
+import com.sun.istack.NotNull;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,23 +14,40 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @Column(nullable = true)
     private String genre;
+
     @Column(nullable = false)
+    @NotNull
     private String author;
+
     @Column(nullable = false)
+    @NotNull
     private String image;
+
     @Column(nullable = false)
+    @NotNull
     private String title;
+
     @Column(nullable = false)
+    @NotNull
     private String subtitle;
+
     @Column(nullable = false)
+    @NotNull
     private String publisher;
+
     @Column(nullable = false)
+    @NotNull
     private String year;
+
     @Column(nullable = false)
+    @NotNull
     private Integer pages;
+
     @Column(nullable = false, unique = true)
+    @NotNull
     private String isbn;
 
     public Book() {
