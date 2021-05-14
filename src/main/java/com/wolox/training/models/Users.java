@@ -43,6 +43,16 @@ public class Users {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<Book> books = new ArrayList<>();
 
+    public Users() {
+    }
+
+    public Users(String userName, String name, LocalDate birthDate, List<Book> books) {
+        this.userName = userName;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.books = books;
+    }
+
     public boolean addBook(Book book) {
         if (books.contains(book)) {
             throw new BookAlreadyOwnedException();
@@ -55,6 +65,13 @@ public class Users {
             return books.remove(book);
         }
         return false;
+    }
+
+    public void update(Users users) {
+        this.userName = users.getUserName();
+        this.name = users.getName();
+        this.birthDate = users.getBirthDate();
+        this.books = users.books;
     }
 
     public long getId() {
