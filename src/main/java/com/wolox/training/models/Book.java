@@ -67,7 +67,7 @@ public class Book {
     }
 
     /**
-     * @param book the book for obtains the params to update
+     * @param book the {@link Book} for obtains the params to update
      */
     public void update(Book book) {
         this.genre = book.getGenre();
