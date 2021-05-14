@@ -2,8 +2,8 @@ package com.wolox.training.exceptions;
 
 public class ErrorResponse {
 
-    private String reason;
-    private Integer code;
+    private final String reason;
+    private final Integer code;
 
     public ErrorResponse(String reason, Integer code){
         this.reason = reason;

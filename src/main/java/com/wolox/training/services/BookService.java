@@ -39,7 +39,7 @@ public class BookService {
     }
 
     public void delete(Long id) {
-        Book book = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
+        bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
 
         bookRepository.deleteById(id);
     }

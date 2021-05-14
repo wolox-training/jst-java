@@ -4,10 +4,10 @@ public enum ErrorDescription {
 
     BOOK_NOT_FOUND("Book not found.", 1);
 
-    private String reason;
-    private Integer code;
+    private final String reason;
+    private final Integer code;
 
-    private ErrorDescription(String reason, Integer code) {
+    ErrorDescription(String reason, Integer code) {
         this.reason = reason;
         this.code = code;
     }
