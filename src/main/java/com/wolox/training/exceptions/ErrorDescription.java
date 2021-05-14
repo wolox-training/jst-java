@@ -2,7 +2,7 @@ package com.wolox.training.exceptions;
 
 public enum ErrorDescription {
 
-    BOOK_NOT_FOUND("Book not found.", 1);
+    BOOK_NOT_FOUND("Book not found.", 1), BOOK_ALREADY_OWNED("Book already owned", 2);
 
     private final String reason;
     private final Integer code;
