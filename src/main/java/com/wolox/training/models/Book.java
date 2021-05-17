@@ -1,7 +1,8 @@
 package com.wolox.training.models;
 
-
+import com.google.common.base.Preconditions;
 import com.sun.istack.NotNull;
+import com.wolox.training.utils.GuavaPreConditionsMessage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -96,7 +97,8 @@ public class Book {
     }
 
     public void setGenre(String genre) {
-        this.genre = genre;
+        this.genre = Preconditions.checkNotNull(genre,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "genre"));
     }
 
     public String getAuthor() {
@@ -104,7 +106,8 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        this.author = author;
+        this.author = Preconditions.checkNotNull(author,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "author"));
     }
 
     public String getImage() {
@@ -112,7 +115,8 @@ public class Book {
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.image = Preconditions.checkNotNull(image,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "image"));
     }
 
     public String getTitle() {
@@ -120,7 +124,8 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = Preconditions.checkNotNull(title,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "title"));
     }
 
     public String getSubtitle() {
@@ -128,7 +133,8 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+        this.subtitle = Preconditions.checkNotNull(subtitle,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "subtitle"));
     }
 
     public String getPublisher() {
@@ -136,7 +142,8 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher = Preconditions.checkNotNull(publisher,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "publisher"));
     }
 
     public String getYear() {
@@ -144,7 +151,8 @@ public class Book {
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.year = Preconditions.checkNotNull(year,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "year"));
     }
 
     public Integer getPages() {
@@ -152,7 +160,8 @@ public class Book {
     }
 
     public void setPages(Integer pages) {
-        this.pages = pages;
+        this.pages = Preconditions.checkNotNull(pages,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "pages"));
     }
 
     public String getIsbn() {
@@ -160,6 +169,7 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        this.isbn = Preconditions.checkNotNull(isbn,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "isbn"));
     }
 }
