@@ -1,6 +1,7 @@
 package com.wolox.training.models;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.sun.istack.NotNull;
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
 import com.wolox.training.utils.GuavaPreConditionsMessage;
@@ -32,6 +33,11 @@ public class Users {
     @NotNull
     @ApiModelProperty(notes = "The user's username")
     private String userName;
+
+    @Column(nullable = false)
+    @NotNull
+    @ApiModelProperty(notes = "The user's password")
+    private String password;
 
     @Column(nullable = false)
     @NotNull
@@ -94,6 +100,16 @@ public class Users {
     public void setUserName(String userName) {
         this.userName = Preconditions.checkNotNull(userName,
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "userName"));
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(password),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "password"));
+        this.password = password;
     }
 
     public String getName() {
