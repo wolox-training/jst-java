@@ -21,7 +21,31 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @WebMvcTest(BookController.class)
 public class BookControllerTest {
 
-    private final static String URL = "/api/v1/books";
+    private static final String URL = "/api/v1/books";
+    private static final String JSON_RESPONSE_ONE_BOOK = "{\n"
+            + "    \"id\": 0,\n"
+            + "    \"genre\": \"Terror\",\n"
+            + "    \"author\": \"Stephen King\",\n"
+            + "    \"image\": \"img.png\",\n"
+            + "    \"title\": \"It\",\n"
+            + "    \"subtitle\": \"Worst clown ever\",\n"
+            + "    \"publisher\": \"Viking Press\",\n"
+            + "    \"year\": \"1986\",\n"
+            + "    \"pages\": 1502,\n"
+            + "    \"isbn\": \"4578-8665\"\n"
+            + "}";
+    private static final String JSON_RESPONSE_LIST_BOOK = "[{\n"
+            + "    \"id\": 0,\n"
+            + "    \"genre\": \"Terror\",\n"
+            + "    \"author\": \"Stephen King\",\n"
+            + "    \"image\": \"img.png\",\n"
+            + "    \"title\": \"It\",\n"
+            + "    \"subtitle\": \"Worst clown ever\",\n"
+            + "    \"publisher\": \"Viking Press\",\n"
+            + "    \"year\": \"1986\",\n"
+            + "    \"pages\": 1502,\n"
+            + "    \"isbn\": \"4578-8665\"\n"
+            + "}]";
 
     @Autowired
     private MockMvc mvc;
@@ -44,18 +68,7 @@ public class BookControllerTest {
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"genre\": \"Terror\",\n"
-                        + "    \"author\": \"Stephen King\",\n"
-                        + "    \"image\": \"img.png\",\n"
-                        + "    \"title\": \"It\",\n"
-                        + "    \"subtitle\": \"Worst clown ever\",\n"
-                        + "    \"publisher\": \"Viking Press\",\n"
-                        + "    \"year\": \"1986\",\n"
-                        + "    \"pages\": 1502,\n"
-                        + "    \"isbn\": \"4578-8665\"\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_BOOK));
     }
 
     @Test
@@ -64,18 +77,7 @@ public class BookControllerTest {
         mvc.perform(MockMvcRequestBuilders.get(URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("[{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"genre\": \"Terror\",\n"
-                        + "    \"author\": \"Stephen King\",\n"
-                        + "    \"image\": \"img.png\",\n"
-                        + "    \"title\": \"It\",\n"
-                        + "    \"subtitle\": \"Worst clown ever\",\n"
-                        + "    \"publisher\": \"Viking Press\",\n"
-                        + "    \"year\": \"1986\",\n"
-                        + "    \"pages\": 1502,\n"
-                        + "    \"isbn\": \"4578-8665\"\n"
-                        + "}]"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_LIST_BOOK));
     }
 
     @Test
@@ -84,18 +86,7 @@ public class BookControllerTest {
         mvc.perform(MockMvcRequestBuilders.get(URL.concat("/title/It"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("[{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"genre\": \"Terror\",\n"
-                        + "    \"author\": \"Stephen King\",\n"
-                        + "    \"image\": \"img.png\",\n"
-                        + "    \"title\": \"It\",\n"
-                        + "    \"subtitle\": \"Worst clown ever\",\n"
-                        + "    \"publisher\": \"Viking Press\",\n"
-                        + "    \"year\": \"1986\",\n"
-                        + "    \"pages\": 1502,\n"
-                        + "    \"isbn\": \"4578-8665\"\n"
-                        + "}]"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_LIST_BOOK));
     }
 
     @Test
@@ -104,18 +95,7 @@ public class BookControllerTest {
         mvc.perform(MockMvcRequestBuilders.get(URL.concat("/0"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"genre\": \"Terror\",\n"
-                        + "    \"author\": \"Stephen King\",\n"
-                        + "    \"image\": \"img.png\",\n"
-                        + "    \"title\": \"It\",\n"
-                        + "    \"subtitle\": \"Worst clown ever\",\n"
-                        + "    \"publisher\": \"Viking Press\",\n"
-                        + "    \"year\": \"1986\",\n"
-                        + "    \"pages\": 1502,\n"
-                        + "    \"isbn\": \"4578-8665\"\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_BOOK));
     }
 
     @Test
@@ -125,18 +105,7 @@ public class BookControllerTest {
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"genre\": \"Terror\",\n"
-                        + "    \"author\": \"Stephen King\",\n"
-                        + "    \"image\": \"img.png\",\n"
-                        + "    \"title\": \"It\",\n"
-                        + "    \"subtitle\": \"Worst clown ever\",\n"
-                        + "    \"publisher\": \"Viking Press\",\n"
-                        + "    \"year\": \"1986\",\n"
-                        + "    \"pages\": 1502,\n"
-                        + "    \"isbn\": \"4578-8665\"\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_BOOK));
     }
 
     @Test

@@ -23,7 +23,21 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
 
-    private final static String URL = "/api/v1/users";
+    private static final String URL = "/api/v1/users";
+    private static final String JSON_RESPONSE_ONE_USER = "{\n"
+            + "    \"id\": 0,\n"
+            + "    \"userName\": \"stella\",\n"
+            + "    \"name\": \"Joel Stella\",\n"
+            + "    \"birthDate\": \"1995-10-28\",\n"
+            + "    \"books\": []\n"
+            + "}";
+    private static final String JSON_RESPONSE_LIST_USER = "[{\n"
+            + "    \"id\": 0,\n"
+            + "    \"userName\": \"stella\",\n"
+            + "    \"name\": \"Joel Stella\",\n"
+            + "    \"birthDate\": \"1995-10-28\",\n"
+            + "    \"books\": []\n"
+            + "}]";
 
     @Autowired
     private MockMvc mvc;
@@ -45,13 +59,7 @@ public class UserControllerTest {
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"userName\": \"stella\",\n"
-                        + "    \"name\": \"Joel Stella\",\n"
-                        + "    \"birthDate\": \"1995-10-28\",\n"
-                        + "    \"books\": []\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_USER));
     }
 
     @Test
@@ -61,13 +69,7 @@ public class UserControllerTest {
                 .param("bookId", "0")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"userName\": \"stella\",\n"
-                        + "    \"name\": \"Joel Stella\",\n"
-                        + "    \"birthDate\": \"1995-10-28\",\n"
-                        + "    \"books\": []\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_USER));
     }
 
     @Test
@@ -77,13 +79,7 @@ public class UserControllerTest {
                 .param("bookId", "0")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"userName\": \"stella\",\n"
-                        + "    \"name\": \"Joel Stella\",\n"
-                        + "    \"birthDate\": \"1995-10-28\",\n"
-                        + "    \"books\": []\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_USER));
     }
 
     @Test
@@ -92,13 +88,7 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.get(URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("[{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"userName\": \"stella\",\n"
-                        + "    \"name\": \"Joel Stella\",\n"
-                        + "    \"birthDate\": \"1995-10-28\",\n"
-                        + "    \"books\": []\n"
-                        + "}]"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_LIST_USER));
     }
 
     @Test
@@ -108,13 +98,7 @@ public class UserControllerTest {
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("{\n"
-                        + "    \"id\": 0,\n"
-                        + "    \"userName\": \"stella\",\n"
-                        + "    \"name\": \"Joel Stella\",\n"
-                        + "    \"birthDate\": \"1995-10-28\",\n"
-                        + "    \"books\": []\n"
-                        + "}"));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_ONE_USER));
     }
 
     @Test
