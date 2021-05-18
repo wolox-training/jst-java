@@ -1,6 +1,7 @@
 package com.wolox.training.models;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.sun.istack.NotNull;
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
 import com.wolox.training.utils.GuavaPreConditionsMessage;
@@ -92,8 +93,9 @@ public class Users {
     }
 
     public void setUserName(String userName) {
-        this.userName = Preconditions.checkNotNull(userName,
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(userName),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "userName"));
+        this.userName = userName;
     }
 
     public String getName() {
@@ -101,8 +103,9 @@ public class Users {
     }
 
     public void setName(String name) {
-        this.name = Preconditions.checkNotNull(name,
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "name"));
+        this.name = name;
     }
 
     public LocalDate getBirthDate() {
