@@ -24,6 +24,7 @@ dependencies {
 	compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security'
+	testCompile group: 'org.springframework.security', name: 'spring-security-test'
 }
 
 test {
