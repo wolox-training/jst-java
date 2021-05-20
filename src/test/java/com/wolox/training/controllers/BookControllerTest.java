@@ -17,6 +17,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -39,7 +41,7 @@ public class BookControllerTest {
             + "    \"pages\": 1502,\n"
             + "    \"isbn\": \"4578-8665\"\n"
             + "}";
-    private static final String JSON_RESPONSE_LIST_BOOK = "[{\n"
+    private static final String JSON_RESPONSE_PAGE_BOOK = "{\"content\":[{\n"
             + "    \"id\": 0,\n"
             + "    \"genre\": \"Terror\",\n"
             + "    \"author\": \"Stephen King\",\n"
@@ -50,7 +52,7 @@ public class BookControllerTest {
             + "    \"year\": \"1986\",\n"
             + "    \"pages\": 1502,\n"
             + "    \"isbn\": \"4578-8665\"\n"
-            + "}]";
+            + "}]}";
 
     @Autowired
     private MockMvc mvc;
@@ -87,21 +89,23 @@ public class BookControllerTest {
     public void whenFindAllBooks_thenReturnAllBooks() throws Exception {
         Mockito.when(mockBookService
                 .findAllBooks(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(), anyString(),
-                        anyInt(), anyString())).thenReturn(Arrays.asList(oneTestBook));
+                        anyInt(), anyString(), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(Arrays.asList(oneTestBook)));
         mvc.perform(MockMvcRequestBuilders.get(URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_LIST_BOOK));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_PAGE_BOOK));
     }
 
     @Test
     @WithMockUser
     public void whenFindByTitle_thenReturnBooksByTitle() throws Exception {
-        Mockito.when(mockBookService.findByTitle("It")).thenReturn(Arrays.asList(oneTestBook));
+        Mockito.when(mockBookService.findByTitle(anyString(), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(Arrays.asList(oneTestBook)));
         mvc.perform(MockMvcRequestBuilders.get(URL.concat("/title/It"))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_LIST_BOOK));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_PAGE_BOOK));
     }
 
     @Test

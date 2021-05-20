@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -41,9 +43,9 @@ public class BookRepositoryIntegrationTest {
         entityManager.persist(book1);
         entityManager.persist(book2);
 
-        List<Book> books = bookRepository.findByTitle("It");
+        Page<Book> books = bookRepository.findByTitle("It", Pageable.unpaged());
 
-        assertThat(books.size()).isEqualTo(2);
+        assertThat(books.getTotalElements()).isEqualTo(2);
     }
 
     @Test
@@ -75,7 +77,7 @@ public class BookRepositoryIntegrationTest {
     }
 
     @Test
-    public void whenFindAllBooksWithEmptyParams_thenReturnBooks(){
+    public void whenFindAllBooksWithEmptyParams_thenReturnBooks() {
         Book book1 = new Book("Terror", "Stephen King", "img.png", "It", "Parte 1", "Viking Press", "1986",
                 1502, "4578-8665");
         Book book2 = new Book("Terror", "Stephen King", "img.png", "It", "Parte 2", "Viking Press", "1987",
@@ -83,8 +85,8 @@ public class BookRepositoryIntegrationTest {
         entityManager.persist(book1);
         entityManager.persist(book2);
 
-        List<Book> books = bookRepository.findAllBooks("Terror", "", "", "", "", "", "", 0, "");
+        Page<Book> books = bookRepository.findAllBooks("Terror", "", "", "", "", "", "", 0, "", Pageable.unpaged());
 
-        assertThat(books.size()).isEqualTo(2);
+        assertThat(books.getTotalElements()).isEqualTo(2);
     }
 }

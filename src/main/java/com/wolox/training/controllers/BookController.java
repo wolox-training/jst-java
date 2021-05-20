@@ -4,9 +4,10 @@ import com.wolox.training.controllers.vo.BookVO;
 import com.wolox.training.models.Book;
 import com.wolox.training.services.BookService;
 import com.wolox.training.services.rest.OpenLibraryService;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,7 @@ public class BookController {
      * @return a list of books filtering by parameters
      */
     public @ResponseBody
-    ResponseEntity<List<Book>> findAll(
+    ResponseEntity<Page<Book>> findAll(
             @RequestParam(required = false, defaultValue = "") String genre,
             @RequestParam(required = false, defaultValue = "") String author,
             @RequestParam(required = false, defaultValue = "") String image,
@@ -71,9 +72,10 @@ public class BookController {
             @RequestParam(required = false, defaultValue = "") String publisher,
             @RequestParam(required = false, defaultValue = "") String year,
             @RequestParam(required = false, defaultValue = "0") Integer pages,
-            @RequestParam(required = false, defaultValue = "") String isbn) {
+            @RequestParam(required = false, defaultValue = "") String isbn,
+            Pageable pageable) {
         return new ResponseEntity<>(
-                bookService.findAllBooks(genre, author, image, title, subtitle, publisher, year, pages, isbn),
+                bookService.findAllBooks(genre, author, image, title, subtitle, publisher, year, pages, isbn, pageable),
                 HttpStatus.OK);
     }
 
@@ -83,8 +85,8 @@ public class BookController {
      * @return the list of found books with the HTTP status
      */
     public @ResponseBody
-    ResponseEntity<List<Book>> findByTitle(@PathVariable String bookTitle) {
-        return new ResponseEntity<>(bookService.findByTitle(bookTitle), HttpStatus.OK);
+    ResponseEntity<Page<Book>> findByTitle(@PathVariable String bookTitle, Pageable pageable) {
+        return new ResponseEntity<>(bookService.findByTitle(bookTitle, pageable), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
