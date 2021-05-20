@@ -5,8 +5,9 @@ import com.wolox.training.exceptions.UserNotFoundException;
 import com.wolox.training.models.Book;
 import com.wolox.training.models.Users;
 import com.wolox.training.repositories.UserRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,8 +55,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<Users> findAll() {
-        return userRepository.findAll();
+    public Page<Users> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public Users updateUser(UsersVO usersVO, Long id) {

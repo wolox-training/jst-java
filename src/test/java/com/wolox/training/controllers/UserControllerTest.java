@@ -16,6 +16,8 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -33,13 +35,13 @@ public class UserControllerTest {
             + "    \"birthDate\": \"1995-10-28\",\n"
             + "    \"books\": []\n"
             + "}";
-    private static final String JSON_RESPONSE_LIST_USER = "[{\n"
+    private static final String JSON_RESPONSE_PAGE_USER = "{\"content\":[{\n"
             + "    \"id\": 0,\n"
             + "    \"userName\": \"stella\",\n"
             + "    \"name\": \"Joel Stella\",\n"
             + "    \"birthDate\": \"1995-10-28\",\n"
             + "    \"books\": []\n"
-            + "}]";
+            + "}]}";
 
     @Autowired
     private MockMvc mvc;
@@ -92,11 +94,12 @@ public class UserControllerTest {
     @Test
     @WithMockUser
     public void whenFindAllUsers_thenReturnAllUsers() throws Exception {
-        Mockito.when(mockUserService.findAll()).thenReturn(Arrays.asList(oneTestUser));
+        Mockito.when(mockUserService.findAll(any(Pageable.class)))
+                .thenReturn(new PageImpl<>(Arrays.asList(oneTestUser)));
         mvc.perform(MockMvcRequestBuilders.get(URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_LIST_USER));
+                .andExpect(MockMvcResultMatchers.content().json(JSON_RESPONSE_PAGE_USER));
     }
 
     @Test
