@@ -73,4 +73,18 @@ public class BookRepositoryIntegrationTest {
 
         assertThat(books.size()).isEqualTo(1);
     }
+
+    @Test
+    public void whenFindAllBooksWithEmptyParams_thenReturnBooks(){
+        Book book1 = new Book("Terror", "Stephen King", "img.png", "It", "Parte 1", "Viking Press", "1986",
+                1502, "4578-8665");
+        Book book2 = new Book("Terror", "Stephen King", "img.png", "It", "Parte 2", "Viking Press", "1987",
+                1502, "4578-8666");
+        entityManager.persist(book1);
+        entityManager.persist(book2);
+
+        List<Book> books = bookRepository.findAllBooks("Terror", "", "", "", "", "", "", 0, "");
+
+        assertThat(books.size()).isEqualTo(2);
+    }
 }

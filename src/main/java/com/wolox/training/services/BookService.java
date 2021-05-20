@@ -23,8 +23,9 @@ public class BookService {
         return bookRepository.save(bookVO.toModel());
     }
 
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<Book> findAllBooks(String genre, String author, String image, String title, String subtitle,
+            String publisher, String year, Integer pages, String isbn) {
+        return bookRepository.findAllBooks(genre, author, image, title, subtitle, publisher, year, pages, isbn);
     }
 
     public List<Book> findByTitle(String bookTitle) {

@@ -59,11 +59,22 @@ public class BookController {
 
     @GetMapping
     /**
-     * @return a list of all books
+     * @return a list of books filtering by parameters
      */
     public @ResponseBody
-    ResponseEntity<List<Book>> findAll() {
-        return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
+    ResponseEntity<List<Book>> findAll(
+            @RequestParam(required = false, defaultValue = "") String genre,
+            @RequestParam(required = false, defaultValue = "") String author,
+            @RequestParam(required = false, defaultValue = "") String image,
+            @RequestParam(required = false, defaultValue = "") String title,
+            @RequestParam(required = false, defaultValue = "") String subtitle,
+            @RequestParam(required = false, defaultValue = "") String publisher,
+            @RequestParam(required = false, defaultValue = "") String year,
+            @RequestParam(required = false, defaultValue = "0") Integer pages,
+            @RequestParam(required = false, defaultValue = "") String isbn) {
+        return new ResponseEntity<>(
+                bookService.findAllBooks(genre, author, image, title, subtitle, publisher, year, pages, isbn),
+                HttpStatus.OK);
     }
 
     @GetMapping("/title/{bookTitle}")
