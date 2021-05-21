@@ -3,7 +3,9 @@ package com.wolox.training.controllers;
 import com.wolox.training.controllers.dto.BookDTO;
 import com.wolox.training.models.Book;
 import com.wolox.training.services.BookService;
+import com.wolox.training.services.rest.OpenLibraryService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,9 @@ public class BookController {
 
     @Autowired
     private BookService bookService;
+
+    @Autowired
+    private OpenLibraryService openLibraryService;
 
     @GetMapping("/greeting")
     /**
@@ -79,6 +84,17 @@ public class BookController {
     public @ResponseBody
     ResponseEntity<Book> findById(@PathVariable Long id) {
         return new ResponseEntity<>(bookService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/isbn/{isbn}")
+    public ResponseEntity<Book> findByIsbn(@PathVariable String isbn) {
+        Optional<Book> book = bookService.findByIsbn(isbn);
+
+        if (!book.isPresent()) {
+            return new ResponseEntity<>(bookService.findByIsbnExternalApi(isbn), HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(book.get(), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
