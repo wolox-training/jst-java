@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 
-import com.wolox.training.controllers.vo.BookVO;
+import com.wolox.training.controllers.dto.BookDTO;
 import com.wolox.training.models.Book;
 import com.wolox.training.security.CustomAuthenticationProvider;
 import com.wolox.training.services.BookService;
@@ -74,7 +74,7 @@ public class BookControllerTest {
 
     @Test
     public void whenCreateBook_thenReturnCreatedBook() throws Exception {
-        Mockito.when(mockBookService.create(any(BookVO.class))).thenReturn(oneTestBook);
+        Mockito.when(mockBookService.create(any(BookDTO.class))).thenReturn(oneTestBook);
         mvc.perform(MockMvcRequestBuilders.post(URL)
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -117,7 +117,7 @@ public class BookControllerTest {
     @Test
     @WithMockUser
     public void whenUpdateBook_thenReturnUpdatedBook() throws Exception {
-        Mockito.when(mockBookService.updateBook(any(BookVO.class), anyLong())).thenReturn(oneTestBook);
+        Mockito.when(mockBookService.updateBook(any(BookDTO.class), anyLong())).thenReturn(oneTestBook);
         mvc.perform(MockMvcRequestBuilders.put(URL.concat("/0"))
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))

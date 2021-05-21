@@ -1,6 +1,6 @@
 package com.wolox.training.controllers;
 
-import com.wolox.training.controllers.vo.UsersVO;
+import com.wolox.training.controllers.dto.UsersDTO;
 import com.wolox.training.models.Users;
 import com.wolox.training.services.UserService;
 import io.swagger.annotations.Api;
@@ -47,8 +47,8 @@ public class UserController {
     @ApiOperation(value = "Create an user", response = Users.class)
     @ApiResponses(value = @ApiResponse(code = 201, message = "User created"))
     public @ResponseBody
-    ResponseEntity<Users> create(@RequestBody UsersVO usersVO) {
-        return new ResponseEntity<>(userService.create(usersVO), HttpStatus.CREATED);
+    ResponseEntity<Users> create(@RequestBody UsersDTO usersDTO) {
+        return new ResponseEntity<>(userService.create(usersDTO), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/addBook")
@@ -59,9 +59,7 @@ public class UserController {
     })
     public ResponseEntity<Users> addBook(@PathVariable(name = "id") Long userId,
             @ApiParam(value = "Book's id to add", required = true) @RequestParam Long bookId) {
-        Users user = userService.addUserBook(userId, bookId);
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.addUserBook(userId, bookId), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/removeBook")
@@ -72,9 +70,7 @@ public class UserController {
     })
     public ResponseEntity<Users> removeBook(@PathVariable(name = "id") Long userId,
             @ApiParam(value = "Book's id to remove", required = true) @RequestParam Long bookId) {
-        Users user = userService.removeUserBook(userId, bookId);
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.removeUserBook(userId, bookId), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/password")
@@ -101,8 +97,8 @@ public class UserController {
             @ApiResponse(code = 400, message = "User not found")
     })
     public @ResponseBody
-    ResponseEntity<Users> updateBook(@RequestBody UsersVO usersVO, @PathVariable Long id) {
-        return new ResponseEntity<>(userService.updateUser(usersVO, id), HttpStatus.OK);
+    ResponseEntity<Users> updateBook(@RequestBody UsersDTO usersDTO, @PathVariable Long id) {
+        return new ResponseEntity<>(userService.updateUser(usersDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
