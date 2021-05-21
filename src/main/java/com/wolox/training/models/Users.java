@@ -2,6 +2,8 @@ package com.wolox.training.models;
 
 import com.sun.istack.NotNull;
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
+@ApiModel(description = "Users from Wolox training")
 public class Users {
 
     @Id
@@ -23,14 +26,17 @@ public class Users {
 
     @Column(nullable = false)
     @NotNull
+    @ApiModelProperty(notes = "The user's username")
     private String userName;
 
     @Column(nullable = false)
     @NotNull
+    @ApiModelProperty(notes = "The user's name")
     private String name;
 
     @Column(nullable = false)
     @NotNull
+    @ApiModelProperty(notes = "The user's birthDate")
     private LocalDate birthDate;
 
     @Column(nullable = false)
