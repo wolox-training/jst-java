@@ -1,7 +1,9 @@
 package com.wolox.training.models;
 
-
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.sun.istack.NotNull;
+import com.wolox.training.utils.GuavaPreConditionsMessage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -96,6 +98,8 @@ public class Book {
     }
 
     public void setGenre(String genre) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(genre),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "genre"));
         this.genre = genre;
     }
 
@@ -104,6 +108,8 @@ public class Book {
     }
 
     public void setAuthor(String author) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(author),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "author"));
         this.author = author;
     }
 
@@ -112,6 +118,8 @@ public class Book {
     }
 
     public void setImage(String image) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(image),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "image"));
         this.image = image;
     }
 
@@ -120,6 +128,8 @@ public class Book {
     }
 
     public void setTitle(String title) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(title),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "title"));
         this.title = title;
     }
 
@@ -128,6 +138,8 @@ public class Book {
     }
 
     public void setSubtitle(String subtitle) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(subtitle),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "subtitle"));
         this.subtitle = subtitle;
     }
 
@@ -136,6 +148,8 @@ public class Book {
     }
 
     public void setPublisher(String publisher) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(publisher),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "publisher"));
         this.publisher = publisher;
     }
 
@@ -144,6 +158,8 @@ public class Book {
     }
 
     public void setYear(String year) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(year),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "year"));
         this.year = year;
     }
 
@@ -152,7 +168,8 @@ public class Book {
     }
 
     public void setPages(Integer pages) {
-        this.pages = pages;
+        this.pages = Preconditions.checkNotNull(pages,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "pages"));
     }
 
     public String getIsbn() {
@@ -160,6 +177,8 @@ public class Book {
     }
 
     public void setIsbn(String isbn) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(isbn),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "isbn"));
         this.isbn = isbn;
     }
 }

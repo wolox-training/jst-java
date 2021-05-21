@@ -1,7 +1,10 @@
 package com.wolox.training.models;
 
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.sun.istack.NotNull;
 import com.wolox.training.exceptions.BookAlreadyOwnedException;
+import com.wolox.training.utils.GuavaPreConditionsMessage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
@@ -84,6 +87,8 @@ public class Users {
     }
 
     public void setUserName(String userName) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(userName),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "userName"));
         this.userName = userName;
     }
 
@@ -92,6 +97,8 @@ public class Users {
     }
 
     public void setName(String name) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "name"));
         this.name = name;
     }
 
@@ -100,7 +107,8 @@ public class Users {
     }
 
     public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
+        this.birthDate = Preconditions.checkNotNull(birthDate,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "birthDate"));
     }
 
     public List<Book> getBooks() {
@@ -108,6 +116,7 @@ public class Users {
     }
 
     public void setBooks(List<Book> books) {
-        this.books = books;
+        this.books = Preconditions.checkNotNull(books,
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "books"));
     }
 }
