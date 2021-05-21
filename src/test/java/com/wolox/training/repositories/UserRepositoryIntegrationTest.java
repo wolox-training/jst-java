@@ -49,4 +49,18 @@ public class UserRepositoryIntegrationTest {
 
         assertThat(users.size()).isEqualTo(1);
     }
+
+    @Test
+    public void whenFindByNameIgnoreCaseAndBirthDateBetweenWithNullParams_thenReturnUser() {
+        Users user = new Users("stella", "Joel Stella", LocalDate.of(1995, 10, 28), new ArrayList<>());
+        user.setPassword("123");
+        Users user2 = new Users("stella2", "Joel Stella2", LocalDate.of(1995, 10, 30), new ArrayList<>());
+        user2.setPassword("123");
+        entityManager.persist(user);
+        entityManager.persist(user2);
+
+        List<Users> users = userRepository.findByNameIgnoreCaseContainingAndBirthDateBetween("JoEl", null, null);
+
+        assertThat(users.size()).isEqualTo(2);
+    }
 }
