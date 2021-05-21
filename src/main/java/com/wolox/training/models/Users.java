@@ -18,9 +18,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import lombok.Getter;
 
 @Entity
 @ApiModel(description = "Users from Wolox training")
+@Getter
 public class Users {
 
     @Id
@@ -83,22 +85,10 @@ public class Users {
         this.books = users.books;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
     public void setUserName(String userName) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(userName),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "userName"));
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -107,18 +97,10 @@ public class Users {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setName(String name) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(name),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "name"));
         this.name = name;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
     }
 
     public void setBirthDate(LocalDate birthDate) {
