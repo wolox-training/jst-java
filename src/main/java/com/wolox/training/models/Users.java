@@ -17,8 +17,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -51,11 +49,7 @@ public class Users {
 
     @Column(nullable = false)
     @NotNull
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "book_users",
-            joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    @ApiModelProperty(notes = "The user's books")
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private List<Book> books = new ArrayList<>();
 
     public Users() {
@@ -98,8 +92,9 @@ public class Users {
     }
 
     public void setUserName(String userName) {
-        this.userName = Preconditions.checkNotNull(userName,
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(userName),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "userName"));
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -117,8 +112,9 @@ public class Users {
     }
 
     public void setName(String name) {
-        this.name = Preconditions.checkNotNull(name,
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(name),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "name"));
+        this.name = name;
     }
 
     public LocalDate getBirthDate() {
