@@ -5,9 +5,10 @@ import com.wolox.training.exceptions.BookNotFoundException;
 import com.wolox.training.models.Book;
 import com.wolox.training.repositories.BookRepository;
 import com.wolox.training.services.rest.OpenLibraryService;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,13 +24,14 @@ public class BookService {
         return bookRepository.save(bookDTO.toModel());
     }
 
-    public List<Book> findAllBooks(String genre, String author, String image, String title, String subtitle,
-            String publisher, String year, Integer pages, String isbn) {
-        return bookRepository.findAllBooks(genre, author, image, title, subtitle, publisher, year, pages, isbn);
+    public Page<Book> findAllBooks(String genre, String author, String image, String title, String subtitle,
+            String publisher, String year, Integer pages, String isbn, Pageable pageable) {
+        return bookRepository
+                .findAllBooks(genre, author, image, title, subtitle, publisher, year, pages, isbn, pageable);
     }
 
-    public List<Book> findByTitle(String bookTitle) {
-        return bookRepository.findByTitle(bookTitle);
+    public Page<Book> findByTitle(String bookTitle, Pageable pageable) {
+        return bookRepository.findByTitle(bookTitle, pageable);
     }
 
     public Book findById(Long id) {

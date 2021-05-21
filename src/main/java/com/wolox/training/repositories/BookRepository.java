@@ -4,6 +4,8 @@ package com.wolox.training.repositories;
 import com.wolox.training.models.Book;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,14 +20,14 @@ public interface BookRepository extends JpaRepository<Book, Long> {
      */
     Optional<Book> findByAuthor(String author);
 
-    List<Book> findByTitle(String bookTitle);
+    Page<Book> findByTitle(String bookTitle, Pageable pageable);
 
-    public Optional<Book> findByIsbn(String isbn);
+    Optional<Book> findByIsbn(String isbn);
 
     @Query("SELECT b FROM Book b WHERE (:publisher IS NULL OR b.publisher = :publisher) "
             + "and (:genre IS NULL OR b.genre = :genre) "
             + "and (:year IS NULL OR b.year = :year)")
-    public List<Book> findByPublisherAndGenreAndYear(@Param("publisher") String publisher,
+    List<Book> findByPublisherAndGenreAndYear(@Param("publisher") String publisher,
             @Param("genre") String genre, @Param("year") String year);
 
     @Query("SELECT b FROM Book b WHERE (:genre = '' OR b.genre = :genre)"
@@ -37,9 +39,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             + "and (:year = '' OR b.year = :year)"
             + "and (:pages = 0 OR b.pages = :pages)"
             + "and (:isbn = '' OR b.isbn = :isbn)")
-    public List<Book> findAllBooks(@Param("genre") String genre, @Param("author") String author,
+    Page<Book> findAllBooks(@Param("genre") String genre, @Param("author") String author,
             @Param("image") String image,
             @Param("title") String title, @Param("subtitle") String subtitle,
             @Param("publisher") String publisher, @Param("year") String year, @Param("pages") Integer pages,
-            @Param("isbn") String isbn);
+            @Param("isbn") String isbn, Pageable pageable);
 }

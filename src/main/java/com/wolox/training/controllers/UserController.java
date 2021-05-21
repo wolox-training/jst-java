@@ -9,8 +9,9 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.security.Principal;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -77,7 +78,8 @@ public class UserController {
     @ApiOperation(value = "Update user's password", response = Users.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Password updated successfully"),
             @ApiResponse(code = 400, message = "User to update not found")})
-    public ResponseEntity<Users> updateUserPassword(@PathVariable Long id, @RequestParam(name = "password") String password) {
+    public ResponseEntity<Users> updateUserPassword(@PathVariable Long id,
+            @RequestParam(name = "password") String password) {
         Users user = userService.updateUserPassword(id, password);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -86,8 +88,8 @@ public class UserController {
     @ApiOperation(value = "Find all users", response = Users.class)
     @ApiResponses(value = @ApiResponse(code = 200, message = "Successfully users found"))
     public @ResponseBody
-    ResponseEntity<List<Users>> findAll() {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    ResponseEntity<Page<Users>> findAll(Pageable pageable) {
+        return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
