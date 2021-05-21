@@ -3,7 +3,7 @@ package com.wolox.training.controllers;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 
-import com.wolox.training.controllers.vo.UsersVO;
+import com.wolox.training.controllers.dto.UsersDTO;
 import com.wolox.training.models.Users;
 import com.wolox.training.security.CustomAuthenticationProvider;
 import com.wolox.training.services.UserService;
@@ -61,7 +61,7 @@ public class UserControllerTest {
 
     @Test
     public void whenCreateUser_thenReturnCreatedUser() throws Exception {
-        Mockito.when(mockUserService.create(any(UsersVO.class))).thenReturn(oneTestUser);
+        Mockito.when(mockUserService.create(any(UsersDTO.class))).thenReturn(oneTestUser);
         mvc.perform(MockMvcRequestBuilders.post(URL)
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -105,7 +105,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser
     public void whenUpdateUser_thenReturnUpdatedUser() throws Exception {
-        Mockito.when(mockUserService.updateUser(any(UsersVO.class), anyLong())).thenReturn(oneTestUser);
+        Mockito.when(mockUserService.updateUser(any(UsersDTO.class), anyLong())).thenReturn(oneTestUser);
         mvc.perform(MockMvcRequestBuilders.put(URL.concat("/0"))
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))

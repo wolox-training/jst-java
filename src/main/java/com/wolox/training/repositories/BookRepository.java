@@ -14,16 +14,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    public Optional<Book> findByAuthor(String author);
+    /**
+     * @param author author of the book to find
+     * @return the book found by author or empty optional
+     */
+    Optional<Book> findByAuthor(String author);
 
-    public Page<Book> findByTitle(String bookTitle, Pageable pageable);
+    Page<Book> findByTitle(String bookTitle, Pageable pageable);
 
-    public Optional<Book> findByIsbn(String isbn);
+    Optional<Book> findByIsbn(String isbn);
 
     @Query("SELECT b FROM Book b WHERE (:publisher IS NULL OR b.publisher = :publisher) "
             + "and (:genre IS NULL OR b.genre = :genre) "
             + "and (:year IS NULL OR b.year = :year)")
-    public List<Book> findByPublisherAndGenreAndYear(@Param("publisher") String publisher,
+    List<Book> findByPublisherAndGenreAndYear(@Param("publisher") String publisher,
             @Param("genre") String genre, @Param("year") String year);
 
     @Query("SELECT b FROM Book b WHERE (:genre = '' OR b.genre = :genre)"
@@ -35,7 +39,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             + "and (:year = '' OR b.year = :year)"
             + "and (:pages = 0 OR b.pages = :pages)"
             + "and (:isbn = '' OR b.isbn = :isbn)")
-    public Page<Book> findAllBooks(@Param("genre") String genre, @Param("author") String author,
+    Page<Book> findAllBooks(@Param("genre") String genre, @Param("author") String author,
             @Param("image") String image,
             @Param("title") String title, @Param("subtitle") String subtitle,
             @Param("publisher") String publisher, @Param("year") String year, @Param("pages") Integer pages,

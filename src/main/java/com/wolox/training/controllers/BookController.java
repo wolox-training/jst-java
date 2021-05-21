@@ -1,6 +1,6 @@
 package com.wolox.training.controllers;
 
-import com.wolox.training.controllers.vo.BookVO;
+import com.wolox.training.controllers.dto.BookDTO;
 import com.wolox.training.models.Book;
 import com.wolox.training.services.BookService;
 import com.wolox.training.services.rest.OpenLibraryService;
@@ -39,7 +39,7 @@ public class BookController {
     @GetMapping("/greeting")
     /**
      * @param name the name for show in the view
-     * @param model the model to add attributes for show in the view
+     * @param model the {@link Model} to add attributes for show in the view
      * @return the view to show the greet
      */
     public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
@@ -50,12 +50,12 @@ public class BookController {
 
     @PostMapping
     /**
-     * @param bookVO the book with the attributes that can choose the user to create it
-     * @return the created book with the HTTP status
+     * @param bookVO the {@link BookVO} with the attributes that can choose the user to create it
+     * @return the created {@link Book} with the HTTP status
      */
     public @ResponseBody
-    ResponseEntity<Book> create(@RequestBody BookVO bookVO) {
-        return new ResponseEntity<>(bookService.create(bookVO), HttpStatus.CREATED);
+    ResponseEntity<Book> create(@RequestBody BookDTO bookDTO) {
+        return new ResponseEntity<>(bookService.create(bookDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -81,8 +81,8 @@ public class BookController {
 
     @GetMapping("/title/{bookTitle}")
     /**
-     * @param bookTitle the tiltle of the book to find
-     * @return the list of found books with the HTTP status
+     * @param bookTitle the title of the {@link Book} to find
+     * @return the list of found {@link Book} with the HTTP status
      */
     public @ResponseBody
     ResponseEntity<Page<Book>> findByTitle(@PathVariable String bookTitle, Pageable pageable) {
@@ -91,8 +91,8 @@ public class BookController {
 
     @GetMapping("/{id}")
     /**
-     * @param id the id of the book to find
-     * @return the found book with the HTTP status
+     * @param id the id of the {@link Book} to find
+     * @return the found {@link Book} with the HTTP status
      */
     public @ResponseBody
     ResponseEntity<Book> findById(@PathVariable Long id) {
@@ -112,19 +112,19 @@ public class BookController {
 
     @PutMapping("/{id}")
     /**
-     * @param bookVO the book with the attributes that the user can change
-     * @param id the id with the book to update
-     * @return the updated book with the HTTP status
+     * @param bookVO the {@link BookVO} with the attributes that the user can change
+     * @param id the id with the {@link Book} to update
+     * @return the updated {@link Book} with the HTTP status
      */
     public @ResponseBody
-    ResponseEntity<Book> updateBook(@RequestBody BookVO bookVO, @PathVariable Long id) {
-        return new ResponseEntity<>(bookService.updateBook(bookVO, id), HttpStatus.OK);
+    ResponseEntity<Book> updateBook(@RequestBody BookDTO bookDTO, @PathVariable Long id) {
+        return new ResponseEntity<>(bookService.updateBook(bookDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     /**
-     * @param id the id of the book to delete
+     * @param id the id of the {@link Book} to delete
      */
     public @ResponseBody
     void delete(@PathVariable Long id) {

@@ -1,6 +1,6 @@
 package com.wolox.training.services;
 
-import com.wolox.training.controllers.vo.UsersVO;
+import com.wolox.training.controllers.dto.UsersDTO;
 import com.wolox.training.exceptions.UserNotFoundException;
 import com.wolox.training.models.Book;
 import com.wolox.training.models.Users;
@@ -23,9 +23,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Users create(UsersVO usersVO) {
-        Users user = usersVO.toModel();
-        user.setPassword(passwordEncoder.encode(usersVO.getPassword()));
+    public Users create(UsersDTO usersDTO) {
+        Users user = usersDTO.toModel();
+        user.setPassword(passwordEncoder.encode(usersDTO.getPassword()));
 
         return userRepository.save(user);
     }
@@ -59,10 +59,10 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
-    public Users updateUser(UsersVO usersVO, Long id) {
+    public Users updateUser(UsersDTO usersDTO, Long id) {
         Users usersToUpdate = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
-        usersToUpdate.update(usersVO.toModel());
+        usersToUpdate.update(usersDTO.toModel());
 
         return userRepository.save(usersToUpdate);
     }

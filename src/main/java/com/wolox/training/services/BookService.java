@@ -1,6 +1,6 @@
 package com.wolox.training.services;
 
-import com.wolox.training.controllers.vo.BookVO;
+import com.wolox.training.controllers.dto.BookDTO;
 import com.wolox.training.exceptions.BookNotFoundException;
 import com.wolox.training.models.Book;
 import com.wolox.training.repositories.BookRepository;
@@ -20,8 +20,8 @@ public class BookService {
     @Autowired
     private OpenLibraryService openLibraryService;
 
-    public Book create(BookVO bookVO) {
-        return bookRepository.save(bookVO.toModel());
+    public Book create(BookDTO bookDTO) {
+        return bookRepository.save(bookDTO.toModel());
     }
 
     public Page<Book> findAllBooks(String genre, String author, String image, String title, String subtitle,
@@ -48,10 +48,10 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book updateBook(BookVO bookVO, Long id) {
+    public Book updateBook(BookDTO bookDTO, Long id) {
         Book bookToUpdate = bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
 
-        bookToUpdate.update(bookVO.toModel());
+        bookToUpdate.update(bookDTO.toModel());
 
         return bookRepository.save(bookToUpdate);
     }

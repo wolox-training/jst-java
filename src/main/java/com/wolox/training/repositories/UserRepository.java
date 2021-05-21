@@ -14,13 +14,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
 
-    public Page<Users> findAll(Pageable pageable);
+    Page<Users> findAll(Pageable pageable);
 
-    public Optional<Users> findByUserName(String userName);
+    Optional<Users> findByUserName(String userName);
 
     @Query("SELECT u FROM Users u WHERE (:infixName IS NULL OR lower(u.name) like lower(concat('%', :infixName,'%')))"
             + " and (cast(:startDate as timestamp) IS NULL OR cast(:endDate as timestamp) IS NULL OR u.birthDate BETWEEN :startDate AND :endDate)")
-    public List<Users> findByNameIgnoreCaseContainingAndBirthDateBetween(
+    List<Users> findByNameIgnoreCaseContainingAndBirthDateBetween(
             @Param("infixName") String infix,
             @Param("startDate") LocalDate startBirthdate, @Param("endDate") LocalDate endBirthdate);
 
