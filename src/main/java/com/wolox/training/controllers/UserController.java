@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/loggedUser")
+    @ApiOperation(value = "Logged user", response = Users.class)
+    @ApiResponses(value = @ApiResponse(code = 200, message = "Successfully user"))
+    public ResponseEntity<Users> currentUser(Principal principal) {
+        Users user = new Users();
+        user.setUserName(principal.getName());
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
     @PostMapping
     @ApiOperation(value = "Create an user", response = Users.class)
