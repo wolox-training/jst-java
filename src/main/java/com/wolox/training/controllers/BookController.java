@@ -1,6 +1,6 @@
 package com.wolox.training.controllers;
 
-import com.wolox.training.controllers.vo.BookVO;
+import com.wolox.training.controllers.dto.BookDTO;
 import com.wolox.training.models.Book;
 import com.wolox.training.services.BookService;
 import java.util.List;
@@ -39,8 +39,8 @@ public class BookController {
 
     @PostMapping
     public @ResponseBody
-    ResponseEntity<Book> create(@RequestBody BookVO bookVO) {
-        return new ResponseEntity<>(bookService.create(bookVO), HttpStatus.CREATED);
+    ResponseEntity<Book> create(@RequestBody BookDTO bookDTO) {
+        return new ResponseEntity<>(bookService.create(bookDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -63,8 +63,8 @@ public class BookController {
 
     @PutMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Book> updateBook(@RequestBody BookVO bookVO, @PathVariable Long id) {
-        return new ResponseEntity<>(bookService.updateBook(bookVO, id), HttpStatus.OK);
+    ResponseEntity<Book> updateBook(@RequestBody BookDTO bookDTO, @PathVariable Long id) {
+        return new ResponseEntity<>(bookService.updateBook(bookDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
