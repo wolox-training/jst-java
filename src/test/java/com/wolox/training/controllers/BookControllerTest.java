@@ -1,12 +1,15 @@
 package com.wolox.training.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import com.wolox.training.controllers.dto.BookDTO;
 import com.wolox.training.models.Book;
 import com.wolox.training.security.CustomAuthenticationProvider;
 import com.wolox.training.services.BookService;
+import com.wolox.training.services.rest.OpenLibraryService;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,6 +61,9 @@ public class BookControllerTest {
     @MockBean
     private CustomAuthenticationProvider authProvider;
 
+    @MockBean
+    private OpenLibraryService openLibraryService;
+
     private Book oneTestBook;
 
     @BeforeEach
@@ -79,7 +85,9 @@ public class BookControllerTest {
     @Test
     @WithMockUser
     public void whenFindAllBooks_thenReturnAllBooks() throws Exception {
-        Mockito.when(mockBookService.findAll()).thenReturn(Arrays.asList(oneTestBook));
+        Mockito.when(mockBookService
+                .findAllBooks(anyString(), anyString(), anyString(), anyString(), anyString(), anyString(), anyString(),
+                        anyInt(), anyString())).thenReturn(Arrays.asList(oneTestBook));
         mvc.perform(MockMvcRequestBuilders.get(URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
