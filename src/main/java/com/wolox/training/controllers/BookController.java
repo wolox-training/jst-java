@@ -31,6 +31,11 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/greeting")
+    /**
+     * @param name the name for show in the view
+     * @param model the {@link Model} to add attributes for show in the view
+     * @return the view to show the greet
+     */
     public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
             Model model) {
         model.addAttribute(NAME, name);
@@ -38,30 +43,50 @@ public class BookController {
     }
 
     @PostMapping
+    /**
+     * @param bookVO the {@link BookVO} with the attributes that can choose the user to create it
+     * @return the created {@link Book} with the HTTP status
+     */
     public @ResponseBody
     ResponseEntity<Book> create(@RequestBody BookDTO bookDTO) {
         return new ResponseEntity<>(bookService.create(bookDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
+    /**
+     * @return a list of all {@link Book}
+     */
     public @ResponseBody
     ResponseEntity<List<Book>> findAll() {
         return new ResponseEntity<>(bookService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/title/{bookTitle}")
+    /**
+     * @param bookTitle the title of the {@link Book} to find
+     * @return the list of found {@link Book} with the HTTP status
+     */
     public @ResponseBody
     ResponseEntity<List<Book>> findByTitle(@PathVariable String bookTitle) {
         return new ResponseEntity<>(bookService.findByTitle(bookTitle), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    /**
+     * @param id the id of the {@link Book} to find
+     * @return the found {@link Book} with the HTTP status
+     */
     public @ResponseBody
     ResponseEntity<Book> findById(@PathVariable Long id) {
         return new ResponseEntity<>(bookService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
+    /**
+     * @param bookVO the {@link BookVO} with the attributes that the user can change
+     * @param id the id with the {@link Book} to update
+     * @return the updated {@link Book} with the HTTP status
+     */
     public @ResponseBody
     ResponseEntity<Book> updateBook(@RequestBody BookDTO bookDTO, @PathVariable Long id) {
         return new ResponseEntity<>(bookService.updateBook(bookDTO, id), HttpStatus.OK);
@@ -69,6 +94,9 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    /**
+     * @param id the id of the {@link Book} to delete
+     */
     public @ResponseBody
     void delete(@PathVariable Long id) {
         bookService.delete(id);
