@@ -2,11 +2,14 @@ package com.wolox.training.models;
 
 
 import com.sun.istack.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Book {
@@ -49,6 +52,9 @@ public class Book {
     @Column(nullable = false, unique = true)
     @NotNull
     private String isbn;
+
+    @ManyToMany(mappedBy = "books")
+    private List<Users> users = new ArrayList<>();
 
     public Book() {
     }

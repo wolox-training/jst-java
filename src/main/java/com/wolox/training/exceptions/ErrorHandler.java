@@ -16,4 +16,12 @@ public class ErrorHandler {
         return new ResponseEntity<>(new ErrorResponse(reason, code), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BookAlreadyOwnedException.class)
+    public ResponseEntity<ErrorResponse> resolveBookAlreadyOwnedException(BookAlreadyOwnedException exception) {
+        String reason = exception.getErrorDescription().getReason();
+        Integer code = exception.getErrorDescription().getCode();
+
+        return new ResponseEntity<>(new ErrorResponse(reason, code), HttpStatus.BAD_REQUEST);
+    }
+
 }
