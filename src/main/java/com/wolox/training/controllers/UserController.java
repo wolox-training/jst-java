@@ -35,16 +35,12 @@ public class UserController {
 
     @PatchMapping("/{id}/addBook")
     public ResponseEntity<Users> addBook(@PathVariable(name = "id") Long userId, @RequestParam Long bookId) {
-        Users user = userService.addUserBook(userId, bookId);
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.addUserBook(userId, bookId), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/removeBook")
     public ResponseEntity<Users> removeBook(@PathVariable(name = "id") Long userId, @RequestParam Long bookId) {
-        Users user = userService.removeUserBook(userId, bookId);
-
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.removeUserBook(userId, bookId), HttpStatus.CREATED);
     }
 
     @GetMapping
