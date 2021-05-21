@@ -16,49 +16,49 @@ public class BookTest {
 
     @Test
     public void whenSetGenre_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setGenre(null);
         });
     }
 
     @Test
     public void whenSetAuthor_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setAuthor(null);
         });
     }
 
     @Test
     public void whenSetImage_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setImage(null);
         });
     }
 
     @Test
     public void whenSetTitle_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setTitle(null);
         });
     }
 
     @Test
     public void whenSetSubtitle_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setSubtitle(null);
         });
     }
 
     @Test
     public void whenSetPublisher_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setPublisher(null);
         });
     }
 
     @Test
     public void whenSetYear_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setYear(null);
         });
     }
@@ -72,7 +72,7 @@ public class BookTest {
 
     @Test
     public void whenSetIsbn_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestBook.setIsbn(null);
         });
     }
