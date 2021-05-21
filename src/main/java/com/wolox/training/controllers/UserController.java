@@ -1,6 +1,6 @@
 package com.wolox.training.controllers;
 
-import com.wolox.training.controllers.vo.UsersVO;
+import com.wolox.training.controllers.dto.UsersDTO;
 import com.wolox.training.models.Users;
 import com.wolox.training.services.UserService;
 import java.util.List;
@@ -29,8 +29,8 @@ public class UserController {
 
     @PostMapping
     public @ResponseBody
-    ResponseEntity<Users> create(@RequestBody UsersVO usersVO) {
-        return new ResponseEntity<>(userService.create(usersVO), HttpStatus.CREATED);
+    ResponseEntity<Users> create(@RequestBody UsersDTO usersDTO) {
+        return new ResponseEntity<>(userService.create(usersDTO), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}/addBook")
@@ -51,8 +51,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public @ResponseBody
-    ResponseEntity<Users> updateBook(@RequestBody UsersVO usersVO, @PathVariable Long id) {
-        return new ResponseEntity<>(userService.updateUser(usersVO, id), HttpStatus.OK);
+    ResponseEntity<Users> updateBook(@RequestBody UsersDTO usersDTO, @PathVariable Long id) {
+        return new ResponseEntity<>(userService.updateUser(usersDTO, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
