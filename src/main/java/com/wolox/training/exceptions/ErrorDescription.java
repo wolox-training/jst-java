@@ -3,7 +3,7 @@ package com.wolox.training.exceptions;
 public enum ErrorDescription {
 
     BOOK_NOT_FOUND("Book not found.", 1), BOOK_ALREADY_OWNED("Book already owned", 2),
-    USER_NOT_FOUND("User not found", 3);
+    USER_NOT_FOUND("User not found", 3), VALIDATION_LOGIN("Wrong name and/or password to login", 4);
 
     private final String reason;
     private final Integer code;

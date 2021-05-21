@@ -3,8 +3,9 @@ package com.wolox.training.controllers;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 
-import com.wolox.training.controllers.vo.UsersVO;
+import com.wolox.training.controllers.dto.UsersDTO;
 import com.wolox.training.models.Users;
+import com.wolox.training.security.CustomAuthenticationProvider;
 import com.wolox.training.services.UserService;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -45,6 +47,9 @@ public class UserControllerTest {
     @MockBean
     private UserService mockUserService;
 
+    @MockBean
+    private CustomAuthenticationProvider authProvider;
+
     private Users oneTestUser;
 
     @BeforeEach
@@ -54,7 +59,7 @@ public class UserControllerTest {
 
     @Test
     public void whenCreateUser_thenReturnCreatedUser() throws Exception {
-        Mockito.when(mockUserService.create(any(UsersVO.class))).thenReturn(oneTestUser);
+        Mockito.when(mockUserService.create(any(UsersDTO.class))).thenReturn(oneTestUser);
         mvc.perform(MockMvcRequestBuilders.post(URL)
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -63,6 +68,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void whenAddBook_thenReturnUser() throws Exception {
         Mockito.when(mockUserService.addUserBook(anyLong(), anyLong())).thenReturn(oneTestUser);
         mvc.perform(MockMvcRequestBuilders.patch(URL.concat("/0/addBook"))
@@ -73,6 +79,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void whenRemoveBook_thenReturnUser() throws Exception {
         Mockito.when(mockUserService.removeUserBook(anyLong(), anyLong())).thenReturn(oneTestUser);
         mvc.perform(MockMvcRequestBuilders.patch(URL.concat("/0/removeBook"))
@@ -83,6 +90,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void whenFindAllUsers_thenReturnAllUsers() throws Exception {
         Mockito.when(mockUserService.findAll()).thenReturn(Arrays.asList(oneTestUser));
         mvc.perform(MockMvcRequestBuilders.get(URL)
@@ -92,8 +100,9 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void whenUpdateUser_thenReturnUpdatedUser() throws Exception {
-        Mockito.when(mockUserService.updateUser(any(UsersVO.class), anyLong())).thenReturn(oneTestUser);
+        Mockito.when(mockUserService.updateUser(any(UsersDTO.class), anyLong())).thenReturn(oneTestUser);
         mvc.perform(MockMvcRequestBuilders.put(URL.concat("/0"))
                 .content("{}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -102,6 +111,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser
     public void whenDeleteUser_thenDeleteUser() throws Exception {
         mvc.perform(MockMvcRequestBuilders.delete(URL.concat("/0"))
                 .contentType(MediaType.APPLICATION_JSON))

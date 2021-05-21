@@ -32,4 +32,11 @@ public class ErrorHandler {
         return new ResponseEntity<>(new ErrorResponse(reason, code), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ValidationLoginException.class)
+    public ResponseEntity<ErrorResponse> resolveValidationLoginException(ValidationLoginException exception) {
+        String reason = exception.getErrorDescription().getReason();
+        Integer code = exception.getErrorDescription().getCode();
+
+        return new ResponseEntity<>(new ErrorResponse(reason, code), HttpStatus.BAD_REQUEST);
+    }
 }

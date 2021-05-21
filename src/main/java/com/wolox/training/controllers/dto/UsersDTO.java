@@ -10,6 +10,8 @@ public class UsersDTO {
 
     private String userName;
 
+    private String password;
+
     private String name;
 
     private LocalDate birthDate;
@@ -22,6 +24,10 @@ public class UsersDTO {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getPassword(){
+        return password;
     }
 
     public String getName() {

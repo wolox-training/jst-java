@@ -63,6 +63,15 @@ public class UserController {
         return new ResponseEntity<>(userService.removeUserBook(userId, bookId), HttpStatus.CREATED);
     }
 
+    @PatchMapping("/{id}/password")
+    @ApiOperation(value = "Update user's password", response = Users.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Password updated successfully"),
+            @ApiResponse(code = 400, message = "User to update not found")})
+    public ResponseEntity<Users> updateUserPassword(@PathVariable Long id, @RequestParam(name = "password") String password) {
+        Users user = userService.updateUserPassword(id, password);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @GetMapping
     @ApiOperation(value = "Find all users", response = Users.class)
     @ApiResponses(value = @ApiResponse(code = 200, message = "Successfully users found"))

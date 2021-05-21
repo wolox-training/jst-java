@@ -34,6 +34,11 @@ public class Users {
 
     @Column(nullable = false)
     @NotNull
+    @ApiModelProperty(notes = "The user's password")
+    private String password;
+
+    @Column(nullable = false)
+    @NotNull
     @ApiModelProperty(notes = "The user's name")
     private String name;
 
@@ -90,6 +95,16 @@ public class Users {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(userName),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "userName"));
         this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(password),
+                String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "password"));
+        this.password = password;
     }
 
     public String getName() {

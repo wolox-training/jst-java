@@ -7,6 +7,7 @@ import com.wolox.training.models.Users;
 import com.wolox.training.repositories.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,8 +19,14 @@ public class UserService {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Users create(UsersDTO usersDTO) {
-        return userRepository.save(usersDTO.toModel());
+        Users user = usersDTO.toModel();
+        user.setPassword(passwordEncoder.encode(usersDTO.getPassword()));
+
+        return userRepository.save(user);
     }
 
     public Users addUserBook(Long userId, Long bookId) {
@@ -36,6 +43,13 @@ public class UserService {
         Book book = bookService.findById(bookId);
 
         user.removeBook(book);
+
+        return userRepository.save(user);
+    }
+
+    public Users updateUserPassword(Long userId, String password) {
+        Users user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        user.setPassword(passwordEncoder.encode(password));
 
         return userRepository.save(user);
     }
@@ -58,4 +72,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public boolean validateLogin(String userName, String password) {
+        Users user = userRepository.findByUserName(userName).orElseThrow(UserNotFoundException::new);
+
+        return passwordEncoder.matches(password, user.getPassword());
+    }
 }
