@@ -1,8 +1,8 @@
-package com.wolox.training.controllers.vo;
+package com.wolox.training.controllers.dto;
 
 import com.wolox.training.models.Book;
 
-public class BookVO {
+public class BookDTO {
 
     private String genre;
 
