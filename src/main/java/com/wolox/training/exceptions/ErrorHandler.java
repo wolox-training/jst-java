@@ -24,4 +24,12 @@ public class ErrorHandler {
         return new ResponseEntity<>(new ErrorResponse(reason, code), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> resolveUserNotFoundException(UserNotFoundException exception) {
+        String reason = exception.getErrorDescription().getReason();
+        Integer code = exception.getErrorDescription().getCode();
+
+        return new ResponseEntity<>(new ErrorResponse(reason, code), HttpStatus.BAD_REQUEST);
+    }
+
 }
