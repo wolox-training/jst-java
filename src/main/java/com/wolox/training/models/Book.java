@@ -12,8 +12,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Book {
 
     @Id
@@ -89,22 +91,10 @@ public class Book {
         this.isbn = book.getIsbn();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
     public void setGenre(String genre) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(genre),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "genre"));
         this.genre = genre;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public void setAuthor(String author) {
@@ -113,18 +103,10 @@ public class Book {
         this.author = author;
     }
 
-    public String getImage() {
-        return image;
-    }
-
     public void setImage(String image) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(image),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "image"));
         this.image = image;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public void setTitle(String title) {
@@ -133,18 +115,10 @@ public class Book {
         this.title = title;
     }
 
-    public String getSubtitle() {
-        return subtitle;
-    }
-
     public void setSubtitle(String subtitle) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(subtitle),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "subtitle"));
         this.subtitle = subtitle;
-    }
-
-    public String getPublisher() {
-        return publisher;
     }
 
     public void setPublisher(String publisher) {
@@ -153,27 +127,15 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getYear() {
-        return year;
-    }
-
     public void setYear(String year) {
         Preconditions.checkArgument(!Strings.isNullOrEmpty(year),
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "year"));
         this.year = year;
     }
 
-    public Integer getPages() {
-        return pages;
-    }
-
     public void setPages(Integer pages) {
         this.pages = Preconditions.checkNotNull(pages,
                 String.format(GuavaPreConditionsMessage.CHECK_NOT_NULL.getMessage(), "pages"));
-    }
-
-    public String getIsbn() {
-        return isbn;
     }
 
     public void setIsbn(String isbn) {
