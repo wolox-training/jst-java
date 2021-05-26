@@ -34,14 +34,14 @@ public class UsersTest {
 
     @Test
     public void whenSetUserName_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestUser.setUserName(null);
         });
     }
 
     @Test
     public void whenSetName_thenThrowException() {
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
             oneTestUser.setName(null);
         });
     }
